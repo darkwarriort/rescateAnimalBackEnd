@@ -5,6 +5,7 @@
  */
 package com.rescate.entidades;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,18 +32,23 @@ public class Reportar {
     private String color;
     private String telefono;
     private String direccion;
-    private String coordernadas;
+    private String coordenadas;
     private float latitud;
     private float longitud;
 
     private String foto;
     @Temporal(TemporalType.DATE)
-    private Date fecha;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="America/Guayaquil")    private Date fecha;
     @Temporal(TemporalType.DATE)
-    private Date fechaModificacion;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="America/Guayaquil")    private Date fechaModificacion;
     private String estadoAnimal;
     private String estado;
 
+    public Reportar() {
+    }
+
+    
+    
     public Long getIdReporte() {
         return idReporte;
     }
@@ -115,14 +121,7 @@ public class Reportar {
         this.direccion = direccion;
     }
 
-    public String getCoordernadas() {
-        return coordernadas;
-    }
-
-    public void setCoordernadas(String coordernadas) {
-        this.coordernadas = coordernadas;
-    }
-
+   
     public float getLatitud() {
         return latitud;
     }
@@ -177,6 +176,14 @@ public class Reportar {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getCoordenadas() {
+        return coordenadas;
+    }
+
+    public void setCoordenadas(String coordenadas) {
+        this.coordenadas = coordenadas;
     }
     
     

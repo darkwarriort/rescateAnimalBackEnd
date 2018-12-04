@@ -5,7 +5,7 @@
  */
 package com.rescate.repositorios;
 
-import com.rescate.entidades.Raza;
+import com.rescate.entidades.Reportar;
 import com.rescate.entidades.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +23,18 @@ import org.springframework.stereotype.Service;
  * @author DTUMBACO
  */
 @Service
-public class RepoUsuario {
-      public List<Usuario> obtener() {
+public class RepoReportar {
+    
+    
+    
+     public List<Reportar> obtener() {
         Session sesion = null;
-        List<Usuario> razas = new ArrayList<Usuario>();
+        List<Reportar> razas = new ArrayList<Reportar>();
         try {
             sesion = obtenerSesion();
             Transaction tx = sesion.beginTransaction();
-            String q = "select * from usuario";
-            SQLQuery query = sesion.createSQLQuery(q).addEntity(Usuario.class);
+            String q = "select * from reportar";
+            SQLQuery query = sesion.createSQLQuery(q).addEntity(Reportar.class);
             razas = query.list();
             tx.commit();
         } catch (Exception e) {
@@ -40,16 +43,13 @@ public class RepoUsuario {
         return razas;
 
     }
-      
-      public Usuario crear(Usuario u) {
+    
+      public Reportar crear(Reportar u) {
         Session sesion = null;
         
         try {
             sesion = obtenerSesion();
             Transaction tx = sesion.beginTransaction();
-//            String q = "select * from usuario";
-//            SQLQuery query = sesion.createSQLQuery(q).addEntity(Usuario.class);
-//            razas = query.list();
             sesion.saveOrUpdate(u);
             tx.commit();
         } catch (Exception e) {
@@ -59,10 +59,8 @@ public class RepoUsuario {
         return u;
 
     }
-    
-
-       Session obtenerSesion() {
-        Configuration conf = new Configuration().configure().addAnnotatedClass(Usuario.class);
+      Session obtenerSesion() {
+        Configuration conf = new Configuration().configure().addAnnotatedClass(Reportar.class);
         ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(conf.getProperties()).buildServiceRegistry();
         SessionFactory sf = conf.buildSessionFactory(reg);
         Session sesion = sf.openSession();

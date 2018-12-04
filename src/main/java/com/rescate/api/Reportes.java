@@ -5,16 +5,16 @@
  */
 package com.rescate.api;
 
-import com.rescate.entidades.Raza;
+import com.rescate.entidades.Reportar;
 import com.rescate.entidades.Usuario;
-import com.rescate.repositorios.RepoRaza;
+import com.rescate.repositorios.RepoReportar;
 import com.rescate.repositorios.RepoUsuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,18 +23,18 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @CrossOrigin(origins = "*")
-public class Usuarios {
-        @Autowired
-    private RepoUsuario repositorio_usuarios;
+public class Reportes {
 
-    @RequestMapping("/api/usuario")
-    public  List<Usuario>  obtenerEspecie() {
-        return repositorio_usuarios.obtener();
+    @Autowired
+    private RepoReportar repositorio_reporte;
+
+    @GetMapping("/api/reportar")
+    public List<Reportar> listReportar() {
+        return repositorio_reporte.obtener();
     }
 
-        @PostMapping("/api/usuario/new")
-        public Usuario crearUsuario(@RequestBody Usuario u ){
-            
-            return repositorio_usuarios.crear(u);
-        }
+    @PostMapping("/api/reportar/new")
+    public Reportar crearReporte(@RequestBody Reportar u) {
+        return repositorio_reporte.crear(u);
+    }
 }

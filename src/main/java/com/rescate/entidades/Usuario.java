@@ -5,6 +5,7 @@
  */
 package com.rescate.entidades;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,10 +37,34 @@ public class Usuario {
     private Long idUsers;
     private String estado;
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="America/Guayaquil")
     private Date fechaIngreso;
+    
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="America/Guayaquil")
     private Date fechaModificacion;
 
+    public Usuario(Long idUsuario, String nombres, String apellidos, String correo, String telefono, String direccion, String usuario, String contrasena, Long idUsers, String estado, Date fechaIngreso, Date fechaModificacion) {
+        this.idUsuario = idUsuario;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
+        this.idUsers = idUsers;
+        this.estado = estado;
+        this.fechaIngreso = fechaIngreso;
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public Usuario() {
+    }
+
+    
+    
+    
     public Long getIdUsuario() {
         return idUsuario;
     }
