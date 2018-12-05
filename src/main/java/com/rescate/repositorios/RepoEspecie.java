@@ -32,7 +32,7 @@ public class RepoEspecie {
         try {
             sesion = obtenerSesion();
             Transaction tx = sesion.beginTransaction();
-            String q = "select * from especie";
+            String q = "select * from especie where estado = 'ACTIVO'";
             SQLQuery query = sesion.createSQLQuery(q).addEntity(Especie.class);
             especies = query.list();
             tx.commit();

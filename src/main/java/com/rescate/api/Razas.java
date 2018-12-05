@@ -12,6 +12,8 @@ import com.rescate.repositorios.RepoRaza;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,9 +27,14 @@ public class Razas {
         @Autowired
     private RepoRaza repositorio_razas;
 
-    @RequestMapping("/api/raza")
-    public List<Raza> obtenerEspecie() {
+    @GetMapping("/api/raza")
+    public List<Raza> obtenerRaza() {
         return repositorio_razas.obtener();
+    }
+    
+      @GetMapping("/api/raza/{idEspecie}")
+    public List<Raza> obtenerRazaPorEspecie(@PathVariable ("idEspecie")String idEspecie) {
+        return repositorio_razas.obtenerPorIdEspecie(idEspecie);
     }
 
 }

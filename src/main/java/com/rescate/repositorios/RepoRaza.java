@@ -43,6 +43,22 @@ public class RepoRaza {
 
     }
 
+     public List<Raza> obtenerPorIdEspecie(String especie) {
+        Session sesion = null;
+        List<Raza> razas = new ArrayList<Raza>();
+        try {
+            sesion = obtenerSesion();
+            Transaction tx = sesion.beginTransaction();
+            String q = "select * from raza where estado = 'ACTIVO' and idEspecie = "+especie;
+            SQLQuery query = sesion.createSQLQuery(q).addEntity(Raza.class);
+            razas = query.list();
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return razas;
+
+    }
        Session obtenerSesion() {
         Configuration conf = new Configuration().configure().addAnnotatedClass(Raza.class);
         ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(conf.getProperties()).buildServiceRegistry();
