@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -19,6 +20,8 @@ import javax.persistence.TemporalType;
  * @author DTUMBACO
  */
 @Entity
+@Table(name = "reportar")
+
 public class Reportar {
 
     @Id
@@ -38,17 +41,17 @@ public class Reportar {
 
     private String foto;
     @Temporal(TemporalType.DATE)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="America/Guayaquil")    private Date fecha;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Guayaquil")
+    private Date fecha;
     @Temporal(TemporalType.DATE)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="America/Guayaquil")    private Date fechaModificacion;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Guayaquil")
+    private Date fechaModificacion;
     private String estadoAnimal;
     private String estado;
 
     public Reportar() {
     }
 
-    
-    
     public Long getIdReporte() {
         return idReporte;
     }
@@ -121,7 +124,6 @@ public class Reportar {
         this.direccion = direccion;
     }
 
-   
     public float getLatitud() {
         return latitud;
     }
@@ -185,9 +187,5 @@ public class Reportar {
     public void setCoordenadas(String coordenadas) {
         this.coordenadas = coordenadas;
     }
-    
-    
-    
-    
 
 }

@@ -40,7 +40,22 @@ public class RepoUsuario {
         return razas;
 
     }
-      
+      public Usuario obtener(String idUsuario) {
+        Session sesion = null;
+        Usuario user = null;
+        try {
+            sesion = obtenerSesion();
+            Transaction tx = sesion.beginTransaction();
+            String q = "select * from usuario where idUsuario ="+idUsuario;
+            SQLQuery query = sesion.createSQLQuery(q).addEntity(Usuario.class);
+            user = (Usuario)query.uniqueResult();
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+
+    }
       public Usuario crear(Usuario u) {
         Session sesion = null;
         

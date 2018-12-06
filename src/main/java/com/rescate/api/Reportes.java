@@ -9,13 +9,21 @@ import com.rescate.entidades.Reportar;
 import com.rescate.entidades.Usuario;
 import com.rescate.repositorios.RepoReportar;
 import com.rescate.repositorios.RepoUsuario;
+import com.rescate.util.SendMail;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -25,8 +33,14 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 public class Reportes {
 
+    private static String UPLOADED_FOLDER = "/var/www/html/image/";
+
+    private static String PUBLIC_IMAGES = "/image/";
+
     @Autowired
     private RepoReportar repositorio_reporte;
+    @Autowired
+    private RepoUsuario repositorio_usuario;
 
     @GetMapping("/api/reportar")
     public List<Reportar> listReportar() {
@@ -37,4 +51,32 @@ public class Reportes {
     public Reportar crearReporte(@RequestBody Reportar u) {
         return repositorio_reporte.crear(u);
     }
+
+    @PostMapping("/api/reportar/update/{idUsuario}")
+    public Reportar actualizarReporte(@RequestParam("file") MultipartFile file, @PathVariable("idUsuario") String idUsuario, @RequestBody Reportar u) {
+
+        if (!file.isEmpty()) {
+            try {
+
+                // Get the file and save it somewhere
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+                Files.write(path, bytes);
+                u.setFoto(PUBLIC_IMAGES + file.getOriginalFilename());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            Usuario user = repositorio_usuario.obtener(idUsuario);
+            new SendMail().sendmail(user.getCorreo());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return repositorio_reporte.crear(u);
+    }
+
 }
