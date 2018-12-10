@@ -28,10 +28,10 @@ public class Reportar {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idReporte;
     private String nombre;
-    private Long idEspecie;
-    private Long idRaza;
+    private Long id_especie;
+    private Long id_raza;
     private String edad;
-    private Long idSexo;
+    private Long id_sexo;
     private String color;
     private String telefono;
     private String direccion;
@@ -45,8 +45,8 @@ public class Reportar {
     private Date fecha;
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Guayaquil")
-    private Date fechaModificacion;
-    private String estadoAnimal;
+    private Date fecha_modificacion;
+    private String estado_animal;
     private String estado;
 
     public Reportar() {
@@ -68,20 +68,20 @@ public class Reportar {
         this.nombre = nombre;
     }
 
-    public Long getIdEspecie() {
-        return idEspecie;
+    public Long getId_especie() {
+        return id_especie;
     }
 
-    public void setIdEspecie(Long idEspecie) {
-        this.idEspecie = idEspecie;
+    public void setId_especie(Long id_especie) {
+        this.id_especie = id_especie;
     }
 
-    public Long getIdRaza() {
-        return idRaza;
+    public Long getId_raza() {
+        return id_raza;
     }
 
-    public void setIdRaza(Long idRaza) {
-        this.idRaza = idRaza;
+    public void setId_raza(Long id_raza) {
+        this.id_raza = id_raza;
     }
 
     public String getEdad() {
@@ -92,12 +92,12 @@ public class Reportar {
         this.edad = edad;
     }
 
-    public Long getIdSexo() {
-        return idSexo;
+    public Long getId_sexo() {
+        return id_sexo;
     }
 
-    public void setIdSexo(Long idSexo) {
-        this.idSexo = idSexo;
+    public void setId_sexo(Long id_sexo) {
+        this.id_sexo = id_sexo;
     }
 
     public String getColor() {
@@ -122,6 +122,14 @@ public class Reportar {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getCoordenadas() {
+        return coordenadas;
+    }
+
+    public void setCoordenadas(String coordenadas) {
+        this.coordenadas = coordenadas;
     }
 
     public float getLatitud() {
@@ -156,20 +164,20 @@ public class Reportar {
         this.fecha = fecha;
     }
 
-    public Date getFechaModificacion() {
-        return fechaModificacion;
+    public Date getFecha_modificacion() {
+        return fecha_modificacion;
     }
 
-    public void setFechaModificacion(Date fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
+    public void setFecha_modificacion(Date fecha_modificacion) {
+        this.fecha_modificacion = fecha_modificacion;
     }
 
-    public String getEstadoAnimal() {
-        return estadoAnimal;
+    public String getEstado_animal() {
+        return estado_animal;
     }
 
-    public void setEstadoAnimal(String estadoAnimal) {
-        this.estadoAnimal = estadoAnimal;
+    public void setEstado_animal(String estado_animal) {
+        this.estado_animal = estado_animal;
     }
 
     public String getEstado() {
@@ -180,12 +188,6 @@ public class Reportar {
         this.estado = estado;
     }
 
-    public String getCoordenadas() {
-        return coordenadas;
-    }
-
-    public void setCoordenadas(String coordenadas) {
-        this.coordenadas = coordenadas;
-    }
+    
 
 }

@@ -49,7 +49,7 @@ public class RepoRaza {
         try {
             sesion = obtenerSesion();
             Transaction tx = sesion.beginTransaction();
-            String q = "select * from raza where estado = 'ACTIVO' and idEspecie = "+especie;
+            String q = "select * from raza where estado = 'ACTIVO' and id_especie = "+especie;
             SQLQuery query = sesion.createSQLQuery(q).addEntity(Raza.class);
             razas = query.list();
             tx.commit();

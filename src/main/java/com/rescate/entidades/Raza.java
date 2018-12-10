@@ -20,21 +20,21 @@ import javax.persistence.Table;
 public class Raza {
         @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idRaza;
+    private Long id_raza;
     private String nombre;
-    private Long idEspecie;
+    private Long id_especie;
     private String estado;
-    private Long idUsuario;
+    private Long id_usuario;
 
     public Raza() {
     }
 
-    public Long getIdRaza() {
-        return idRaza;
+    public Long getId_raza() {
+        return id_raza;
     }
 
-    public void setIdRaza(Long idRaza) {
-        this.idRaza = idRaza;
+    public void setId_raza(Long id_raza) {
+        this.id_raza = id_raza;
     }
 
     public String getNombre() {
@@ -45,12 +45,12 @@ public class Raza {
         this.nombre = nombre;
     }
 
-    public Long getIdEspecie() {
-        return idEspecie;
+    public Long getId_especie() {
+        return id_especie;
     }
 
-    public void setIdEspecie(Long idEspecie) {
-        this.idEspecie = idEspecie;
+    public void setId_especie(Long id_especie) {
+        this.id_especie = id_especie;
     }
 
     public String getEstado() {
@@ -61,15 +61,13 @@ public class Raza {
         this.estado = estado;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public Long getId_usuario() {
+        return id_usuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setId_usuario(Long id_usuario) {
+        this.id_usuario = id_usuario;
     }
+        
     
-    
-    
-
 }

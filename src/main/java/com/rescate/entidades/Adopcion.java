@@ -30,21 +30,29 @@ public class Adopcion {
     private String nombre;
     private int edad;
     private Long idEspecie;
-    private Long idRaza;
-    private Long idSexo;
+    private Long id_raza;
+    private Long id_sexo;
     private String descripcion;
     private String foto;
     private String estadoAnimal;
-    private Long idUsuario;
+    private Long id_usuario;
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Guayaquil")
-    private Date fechaIngreso;
+    private Date fecha_ingreso;
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Guayaquil")
-    private Date fechaModificacion;   
+    private Date fecha_modificacion;   
     private String estado;
 
     public Adopcion() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -71,20 +79,20 @@ public class Adopcion {
         this.idEspecie = idEspecie;
     }
 
-    public Long getIdRaza() {
-        return idRaza;
+    public Long getId_raza() {
+        return id_raza;
     }
 
-    public void setIdRaza(Long idRaza) {
-        this.idRaza = idRaza;
+    public void setId_raza(Long id_raza) {
+        this.id_raza = id_raza;
     }
 
-    public Long getIdSexo() {
-        return idSexo;
+    public Long getId_sexo() {
+        return id_sexo;
     }
 
-    public void setIdSexo(Long idSexo) {
-        this.idSexo = idSexo;
+    public void setId_sexo(Long id_sexo) {
+        this.id_sexo = id_sexo;
     }
 
     public String getDescripcion() {
@@ -111,12 +119,28 @@ public class Adopcion {
         this.estadoAnimal = estadoAnimal;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public Long getId_usuario() {
+        return id_usuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setId_usuario(Long id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    public Date getFecha_ingreso() {
+        return fecha_ingreso;
+    }
+
+    public void setFecha_ingreso(Date fecha_ingreso) {
+        this.fecha_ingreso = fecha_ingreso;
+    }
+
+    public Date getFecha_modificacion() {
+        return fecha_modificacion;
+    }
+
+    public void setFecha_modificacion(Date fecha_modificacion) {
+        this.fecha_modificacion = fecha_modificacion;
     }
 
     public String getEstado() {
@@ -127,31 +151,6 @@ public class Adopcion {
         this.estado = estado;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getFechaIngreso() {
-        return fechaIngreso;
-    }
-
-    public void setFechaIngreso(Date fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
-    }
-
-    public Date getFechaModificacion() {
-        return fechaModificacion;
-    }
-
-    public void setFechaModificacion(Date fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
-    }
-    
-    
     
 
 }

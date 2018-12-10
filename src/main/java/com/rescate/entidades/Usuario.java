@@ -7,6 +7,7 @@ package com.rescate.entidades;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idUsuario;
+    private Long id_usuario;
 
     private String nombres;
     private String apellidos;
@@ -34,19 +35,19 @@ public class Usuario {
     private String direccion;
     private String usuario;
     private String contrasena;
-
-    private Long idUsers;
+    private Long id_users;
     private String estado;
+
     @Temporal(TemporalType.DATE)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="America/Guayaquil")
-    private Date fechaIngreso;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Guayaquil")
+    private Date fecha_ingreso;
     
     @Temporal(TemporalType.DATE)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="America/Guayaquil")
-    private Date fechaModificacion;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Guayaquil")
+    private Date fecha_modificacion;
 
-    public Usuario(Long idUsuario, String nombres, String apellidos, String correo, String telefono, String direccion, String usuario, String contrasena, Long idUsers, String estado, Date fechaIngreso, Date fechaModificacion) {
-        this.idUsuario = idUsuario;
+    public Usuario(Long id_usuario, String nombres, String apellidos, String correo, String telefono, String direccion, String usuario, String contrasena, Long id_users, String estado, Date fecha_ingreso, Date fecha_modificacion) {
+        this.id_usuario = id_usuario;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.correo = correo;
@@ -54,24 +55,21 @@ public class Usuario {
         this.direccion = direccion;
         this.usuario = usuario;
         this.contrasena = contrasena;
-        this.idUsers = idUsers;
+        this.id_users = id_users;
         this.estado = estado;
-        this.fechaIngreso = fechaIngreso;
-        this.fechaModificacion = fechaModificacion;
+        this.fecha_ingreso = fecha_ingreso;
+        this.fecha_modificacion = fecha_modificacion;
     }
 
     public Usuario() {
     }
 
-    
-    
-    
-    public Long getIdUsuario() {
-        return idUsuario;
+    public Long getId_usuario() {
+        return id_usuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setId_usuario(Long id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     public String getNombres() {
@@ -130,12 +128,12 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public Long getIdUsers() {
-        return idUsers;
+    public Long getId_users() {
+        return id_users;
     }
 
-    public void setIdUsers(Long idUsers) {
-        this.idUsers = idUsers;
+    public void setId_users(Long id_users) {
+        this.id_users = id_users;
     }
 
     public String getEstado() {
@@ -146,22 +144,22 @@ public class Usuario {
         this.estado = estado;
     }
 
-    public Date getFechaIngreso() {
-        return fechaIngreso;
+    public Date getFecha_ingreso() {
+        return fecha_ingreso;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
+    public void setFecha_ingreso(Date fecha_ingreso) {
+        this.fecha_ingreso = fecha_ingreso;
     }
 
-    public Date getFechaModificacion() {
-        return fechaModificacion;
+    public Date getFecha_modificacion() {
+        return fecha_modificacion;
     }
 
-    public void setFechaModificacion(Date fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
+    public void setFecha_modificacion(Date fecha_modificacion) {
+        this.fecha_modificacion = fecha_modificacion;
     }
-    
+
     
     
     

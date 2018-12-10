@@ -9,6 +9,7 @@ import com.rescate.entidades.Raza;
 import com.rescate.entidades.Usuario;
 import com.rescate.repositorios.RepoRaza;
 import com.rescate.repositorios.RepoUsuario;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,17 +25,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "*")
 public class Usuarios {
-        @Autowired
+
+    @Autowired
     private RepoUsuario repositorio_usuarios;
 
     @RequestMapping("/api/usuario")
-    public  List<Usuario>  obtenerEspecie() {
+    public List<Usuario> obtenerEspecie() {
         return repositorio_usuarios.obtener();
     }
 
-        @PostMapping("/api/usuario/new")
-        public Usuario crearUsuario(@RequestBody Usuario u ){
-            
-            return repositorio_usuarios.crear(u);
-        }
+    @PostMapping("/api/usuario/new")
+    public Usuario crearUsuario(@RequestBody Usuario u) {
+        u.setFecha_modificacion(new Date(System.currentTimeMillis()));
+        u.setFecha_ingreso(new Date(System.currentTimeMillis()));
+
+        return repositorio_usuarios.crear(u);
+    }
 }

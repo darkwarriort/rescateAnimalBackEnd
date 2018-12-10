@@ -22,20 +22,20 @@ public class Especie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idEspecie;
+    private Long id_especie;
     private String nombre;
-    private Long idUsuario;
+    private Long id_usuario;
     private String estado;
 
     public Especie() {
     }
 
-    public Long getIdEspecie() {
-        return idEspecie;
+    public Long getId_especie() {
+        return id_especie;
     }
 
-    public void setIdEspecie(Long idEspecie) {
-        this.idEspecie = idEspecie;
+    public void setId_especie(Long id_especie) {
+        this.id_especie = id_especie;
     }
 
     public String getNombre() {
@@ -46,12 +46,12 @@ public class Especie {
         this.nombre = nombre;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public Long getId_usuario() {
+        return id_usuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setId_usuario(Long id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     public String getEstado() {
@@ -61,5 +61,7 @@ public class Especie {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    
 
 }

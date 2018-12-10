@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,40 +45,52 @@ public class Reportes {
     private RepoUsuario repositorio_usuario;
 
     @GetMapping("/api/reportar")
-    public List<Reportar> listReportar() {
-        return repositorio_reporte.obtener();
+    public List<Object> listReportar() {
+        return repositorio_reporte.obtenerListaExtendida();
     }
 
     @PostMapping("/api/reportar/new")
     public Reportar crearReporte(@RequestBody Reportar u) {
+        u.setFecha(new Date(System.currentTimeMillis()));
+        u.setFecha_modificacion(new Date(System.currentTimeMillis()));
         return repositorio_reporte.crear(u);
     }
 
     @PostMapping("/api/reportar/update/{idUsuario}")
-    public Reportar actualizarReporte(@RequestParam("file") MultipartFile file, @PathVariable("idUsuario") String idUsuario, @RequestBody Reportar u) {
+    public Reportar actualizarReporte( @PathVariable("idUsuario") String idUsuario, @RequestBody Reportar u) {
 
-        if (!file.isEmpty()) {
-            try {
-
-                // Get the file and save it somewhere
-                byte[] bytes = file.getBytes();
-                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-                Files.write(path, bytes);
-                u.setFoto(PUBLIC_IMAGES + file.getOriginalFilename());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
+     
         try {
             Usuario user = repositorio_usuario.obtener(idUsuario);
             new SendMail().sendmail(user.getCorreo());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        u.setFecha_modificacion(new Date(System.currentTimeMillis()));
 
         return repositorio_reporte.crear(u);
     }
 
+    
+    @PostMapping("/api/reportar/uploadImage/{idReporte}")
+    public Reportar uploadImage(@RequestParam("file") MultipartFile file, @PathVariable("idReporte") String idReporte) {
+        
+        Reportar reporte = repositorio_reporte.obtener(idReporte);
+        if (!file.isEmpty()) {
+            try {
+                // Get the file and save it somewhere
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+                Files.write(path, bytes);
+                reporte.setFoto(PUBLIC_IMAGES + file.getOriginalFilename());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        reporte.setFecha_modificacion(new Date(System.currentTimeMillis()));
+
+        return repositorio_reporte.crear(reporte);
+    }
 }
