@@ -29,12 +29,12 @@ public class Adopcion {
 
     private String nombre;
     private int edad;
-    private Long idEspecie;
+    private Long id_especie;
     private Long id_raza;
     private Long id_sexo;
     private String descripcion;
     private String foto;
-    private String estadoAnimal;
+    private String estado_animal;
     private Long id_usuario;
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Guayaquil")
@@ -71,12 +71,12 @@ public class Adopcion {
         this.edad = edad;
     }
 
-    public Long getIdEspecie() {
-        return idEspecie;
+    public Long getId_especie() {
+        return id_especie;
     }
 
-    public void setIdEspecie(Long idEspecie) {
-        this.idEspecie = idEspecie;
+    public void setId_especie(Long id_especie) {
+        this.id_especie = id_especie;
     }
 
     public Long getId_raza() {
@@ -111,12 +111,12 @@ public class Adopcion {
         this.foto = foto;
     }
 
-    public String getEstadoAnimal() {
-        return estadoAnimal;
+    public String getEstado_animal() {
+        return estado_animal;
     }
 
-    public void setEstadoAnimal(String estadoAnimal) {
-        this.estadoAnimal = estadoAnimal;
+    public void setEstado_animal(String estado_animal) {
+        this.estado_animal = estado_animal;
     }
 
     public Long getId_usuario() {
@@ -150,6 +150,7 @@ public class Adopcion {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
 
     
 

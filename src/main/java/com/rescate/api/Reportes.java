@@ -34,32 +34,34 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @CrossOrigin(origins = "*")
 public class Reportes {
-
+    
     private static String UPLOADED_FOLDER = "/var/www/html/image/";
-
+    
     private static String PUBLIC_IMAGES = "/image/";
-
+    
     @Autowired
     private RepoReportar repositorio_reporte;
     @Autowired
     private RepoUsuario repositorio_usuario;
-
+    
     @GetMapping("/api/reportar")
     public List<Object> listReportar() {
         return repositorio_reporte.obtenerListaExtendida();
     }
-
+    
     @PostMapping("/api/reportar/new")
     public Reportar crearReporte(@RequestBody Reportar u) {
         u.setFecha(new Date(System.currentTimeMillis()));
         u.setFecha_modificacion(new Date(System.currentTimeMillis()));
         return repositorio_reporte.crear(u);
     }
-
+    
     @PostMapping("/api/reportar/update/{idUsuario}")
-    public Reportar actualizarReporte( @PathVariable("idUsuario") String idUsuario, @RequestBody Reportar u) {
-
-     
+    public Reportar actualizarReporte(@PathVariable("idUsuario") String idUsuario, @RequestBody Reportar u) {
+        
+        Reportar reporte = repositorio_reporte.obtener(String.valueOf(u.getIdReporte()));
+        u.setFecha(reporte.getFecha());
+        
         try {
             Usuario user = repositorio_usuario.obtener(idUsuario);
             new SendMail().sendmail(user.getCorreo());
@@ -67,10 +69,9 @@ public class Reportes {
             System.out.println(e.getMessage());
         }
         u.setFecha_modificacion(new Date(System.currentTimeMillis()));
-
-        return repositorio_reporte.crear(u);
+        
+        return repositorio_reporte.update(u);
     }
-
     
     @PostMapping("/api/reportar/uploadImage/{idReporte}")
     public Reportar uploadImage(@RequestParam("file") MultipartFile file, @PathVariable("idReporte") String idReporte) {
@@ -83,14 +84,14 @@ public class Reportes {
                 Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
                 Files.write(path, bytes);
                 reporte.setFoto(PUBLIC_IMAGES + file.getOriginalFilename());
-
+                
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            
         }
         reporte.setFecha_modificacion(new Date(System.currentTimeMillis()));
-
+        
         return repositorio_reporte.crear(reporte);
     }
 }

@@ -5,14 +5,13 @@
  */
 package com.rescate.api;
 
-import com.rescate.entidades.Adopcion;
-import com.rescate.entidades.Especie;
-import com.rescate.repositorios.RepoAdopcion;
-import com.rescate.repositorios.RepoEspecie;
+import com.rescate.entidades.Sexo;
+import com.rescate.entidades.Usuario;
+import com.rescate.repositorios.RepoSexo;
+import com.rescate.repositorios.RepoUsuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,13 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @CrossOrigin(origins = "*")
-public class Adopciones {
-        @Autowired
-    private RepoAdopcion repositorio_adopcion;
+public class Sexos {
+    @Autowired
+    private RepoSexo repositorio_sexo;
 
-    @GetMapping("/api/adopciones")
-    public List<Object> obtenerEspecie() {
-        return repositorio_adopcion.obtenerListaExtendida();
+    @RequestMapping("/api/sexo")
+    public List<Sexo> obtenerEspecie() {
+        return repositorio_sexo.obtener();
     }
-
 }

@@ -97,6 +97,21 @@ public class RepoReportar {
         return u;
 
     }
+    
+    public Reportar update(Reportar u) {
+        Session sesion = null;
+        try {
+            sesion = obtenerSesion();
+            Transaction tx = sesion.beginTransaction();
+            sesion.update(u);
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return u;
+
+    }
 
     Session obtenerSesion() {
         Configuration conf = new Configuration().configure().addAnnotatedClass(Reportar.class);
