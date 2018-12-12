@@ -32,6 +32,10 @@ public class Usuarios {
     @RequestMapping("/api/usuario")
     public List<Usuario> obtenerEspecie() {
         return repositorio_usuarios.obtener();
+    } 
+    @PostMapping("/api/usuario/valida")
+    public Usuario validaUsuario(@RequestBody Usuario u) {
+        return repositorio_usuarios.valida(u.getUsuario(), u.getContrasena());
     }
 
     @PostMapping("/api/usuario/new")

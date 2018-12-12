@@ -28,7 +28,8 @@ public class Adopcion {
     private Long id;
 
     private String nombre;
-    private int edad;
+    private int anio;
+    private int mes;
     private Long id_especie;
     private Long id_raza;
     private Long id_sexo;
@@ -63,13 +64,6 @@ public class Adopcion {
         this.nombre = nombre;
     }
 
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
 
     public Long getId_especie() {
         return id_especie;
@@ -149,6 +143,22 @@ public class Adopcion {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
     }
 
 

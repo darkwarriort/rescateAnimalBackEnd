@@ -24,7 +24,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RepoUsuario {
-      public List<Usuario> obtener() {
+
+    public List<Usuario> obtener() {
         Session sesion = null;
         List<Usuario> razas = new ArrayList<Usuario>();
         try {
@@ -40,15 +41,16 @@ public class RepoUsuario {
         return razas;
 
     }
-      public Usuario obtener(String idUsuario) {
+
+    public Usuario obtener(String idUsuario) {
         Session sesion = null;
         Usuario user = null;
         try {
             sesion = obtenerSesion();
             Transaction tx = sesion.beginTransaction();
-            String q = "select * from usuario where idUsuario ="+idUsuario;
+            String q = "select * from usuario where id_usuario =" + idUsuario;
             SQLQuery query = sesion.createSQLQuery(q).addEntity(Usuario.class);
-            user = (Usuario)query.uniqueResult();
+            user = (Usuario) query.uniqueResult();
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,9 +58,27 @@ public class RepoUsuario {
         return user;
 
     }
-      public Usuario crear(Usuario u) {
+
+    public Usuario valida(String idUsuario,String contrasena) {
         Session sesion = null;
-        
+        Usuario user = null;
+        try {
+            sesion = obtenerSesion();
+            Transaction tx = sesion.beginTransaction();
+            String q = "select * from usuario where usuario =" + idUsuario +" and contrasena = "+contrasena;
+            SQLQuery query = sesion.createSQLQuery(q).addEntity(Usuario.class);
+            user = (Usuario) query.uniqueResult();
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+
+    }
+
+    public Usuario crear(Usuario u) {
+        Session sesion = null;
+
         try {
             sesion = obtenerSesion();
             Transaction tx = sesion.beginTransaction();
@@ -74,9 +94,8 @@ public class RepoUsuario {
         return u;
 
     }
-    
 
-       Session obtenerSesion() {
+    Session obtenerSesion() {
         Configuration conf = new Configuration().configure().addAnnotatedClass(Usuario.class);
         ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(conf.getProperties()).buildServiceRegistry();
         SessionFactory sf = conf.buildSessionFactory(reg);

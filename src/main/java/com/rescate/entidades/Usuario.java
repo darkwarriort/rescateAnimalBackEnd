@@ -34,8 +34,8 @@ public class Usuario {
     private String telefono;
     private String direccion;
     private String usuario;
+    private boolean voluntario;
     private String contrasena;
-    private Long id_users;
     private String estado;
 
     @Temporal(TemporalType.DATE)
@@ -46,22 +46,8 @@ public class Usuario {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Guayaquil")
     private Date fecha_modificacion;
 
-    public Usuario(Long id_usuario, String nombres, String apellidos, String correo, String telefono, String direccion, String usuario, String contrasena, Long id_users, String estado, Date fecha_ingreso, Date fecha_modificacion) {
-        this.id_usuario = id_usuario;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.direccion = direccion;
-        this.usuario = usuario;
-        this.contrasena = contrasena;
-        this.id_users = id_users;
-        this.estado = estado;
-        this.fecha_ingreso = fecha_ingreso;
-        this.fecha_modificacion = fecha_modificacion;
-    }
-
     public Usuario() {
+
     }
 
     public Long getId_usuario() {
@@ -128,13 +114,6 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public Long getId_users() {
-        return id_users;
-    }
-
-    public void setId_users(Long id_users) {
-        this.id_users = id_users;
-    }
 
     public String getEstado() {
         return estado;
@@ -158,6 +137,14 @@ public class Usuario {
 
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
+    }
+
+    public boolean isVoluntario() {
+        return voluntario;
+    }
+
+    public void setVoluntario(boolean voluntario) {
+        this.voluntario = voluntario;
     }
 
     
