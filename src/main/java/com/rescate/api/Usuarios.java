@@ -32,17 +32,35 @@ public class Usuarios {
     @RequestMapping("/api/usuario")
     public List<Usuario> obtenerEspecie() {
         return repositorio_usuarios.obtener();
-    } 
+    }
+
     @PostMapping("/api/usuario/valida")
     public Usuario validaUsuario(@RequestBody Usuario u) {
         return repositorio_usuarios.valida(u.getUsuario(), u.getContrasena());
     }
 
+    @PostMapping("/api/usuario/validaCorreo")
+    public Usuario validaCorreo(@RequestBody Usuario u) {
+        return repositorio_usuarios.validaCorreo(u.getCorreo());
+    }
+
+    @PostMapping("/api/usuario/validaUsuario")
+    public Usuario validaUserName(@RequestBody Usuario u) {
+        return repositorio_usuarios.validaUsuario(u.getUsuario());
+    }
+
     @PostMapping("/api/usuario/new")
     public Usuario crearUsuario(@RequestBody Usuario u) {
-        u.setFecha_modificacion(new Date(System.currentTimeMillis()));
-        u.setFecha_ingreso(new Date(System.currentTimeMillis()));
 
-        return repositorio_usuarios.crear(u);
+        if (repositorio_usuarios.validaUsuario(u.getUsuario()) != null) {
+            return new Usuario();
+        } else if (repositorio_usuarios.validaCorreo(u.getCorreo()) != null) {
+            return new Usuario();
+        } else {
+            u.setFecha_modificacion(new Date(System.currentTimeMillis()));
+            u.setFecha_ingreso(new Date(System.currentTimeMillis()));
+
+            return repositorio_usuarios.crear(u);
+        }
     }
 }

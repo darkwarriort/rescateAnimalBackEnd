@@ -65,7 +65,39 @@ public class RepoUsuario {
         try {
             sesion = obtenerSesion();
             Transaction tx = sesion.beginTransaction();
-            String q = "select * from usuario where usuario =" + idUsuario +" and contrasena = "+contrasena;
+            String q = "select * from usuario where usuario = '" + idUsuario +"' and contrasena = '"+contrasena +"'";
+            SQLQuery query = sesion.createSQLQuery(q).addEntity(Usuario.class);
+            user = (Usuario) query.uniqueResult();
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+
+    }
+    public Usuario validaCorreo(String correo) {
+        Session sesion = null;
+        Usuario user = null;
+        try {
+            sesion = obtenerSesion();
+            Transaction tx = sesion.beginTransaction();
+            String q = "select * from usuario where correo ='" + correo+"'" ;
+            SQLQuery query = sesion.createSQLQuery(q).addEntity(Usuario.class);
+            user = (Usuario) query.uniqueResult();
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+
+    }
+    public Usuario validaUsuario(String usuario) {
+        Session sesion = null;
+        Usuario user = null;
+        try {
+            sesion = obtenerSesion();
+            Transaction tx = sesion.beginTransaction();
+            String q = "select * from usuario where usuario = '" + usuario+"'" ;
             SQLQuery query = sesion.createSQLQuery(q).addEntity(Usuario.class);
             user = (Usuario) query.uniqueResult();
             tx.commit();
