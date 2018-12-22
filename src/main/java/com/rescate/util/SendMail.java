@@ -44,12 +44,12 @@ public class SendMail {
         });
     }
 
-    public void sendmail(String correo) throws AddressException, MessagingException, IOException {
+    public void sendmail(String correo,String msge, String asunto) throws AddressException, MessagingException, IOException {
 
         Message msg = new MimeMessage(session);
-        String contenido = "Hola, se ha registrado con exito en la app de rescate animal ecuador";
+        String contenido = msge;
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correo));
-        msg.setSubject("Registro Exitoso");
+        msg.setSubject(asunto);
         msg.setContent("*" + contenido, "text/html");
         msg.setSentDate(new Date());
 

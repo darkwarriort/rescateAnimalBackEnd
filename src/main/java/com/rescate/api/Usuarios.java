@@ -9,6 +9,8 @@ import com.rescate.entidades.Raza;
 import com.rescate.entidades.Usuario;
 import com.rescate.repositorios.RepoRaza;
 import com.rescate.repositorios.RepoUsuario;
+import com.rescate.util.SendMail;
+import java.security.SecureRandom;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,59 @@ public class Usuarios {
     public Usuario validaUserName(@RequestBody Usuario u) {
         return repositorio_usuarios.validaUsuario(u.getUsuario());
     }
+    private static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    @PostMapping("/api/usuario/recovery")
+    public Usuario recuperaUsuario(@RequestBody Usuario u) {
+        Usuario ua = repositorio_usuarios.validaCorreo(u.getCorreo());
+
+        if (ua != null) {
+            try {
+                SecureRandom random = new SecureRandom();
+                String result = "";
+                for (int i = 0; i < 8; i++) {
+                    int index = random.nextInt(ALPHA_CAPS.length());
+                    result += ALPHA_CAPS.charAt(index);
+                }
+                ua.setContrasena(MD5(result));
+                repositorio_usuarios.crear(ua);
+
+                String content = "Estimad@ " + ua.getNombres() + " su clave de acceso es : " + result;
+                String asunto = "Recuperacion de clave";
+                new Thread() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            new SendMail().sendmail(ua.getCorreo(), content, asunto);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }.start();
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return ua;
+        }
+        return new Usuario();
+    }
+
+    public static String MD5(String md5) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            byte[] array = md.digest(md5.getBytes());
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < array.length; ++i) {
+                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
+            }
+            return sb.toString();
+        } catch (java.security.NoSuchAlgorithmException e) {
+        }
+        return null;
+    }
 
     @PostMapping("/api/usuario/new")
     public Usuario crearUsuario(@RequestBody Usuario u) {
@@ -59,8 +114,19 @@ public class Usuarios {
         } else {
             u.setFecha_modificacion(new Date(System.currentTimeMillis()));
             u.setFecha_ingreso(new Date(System.currentTimeMillis()));
+            repositorio_usuarios.crear(u);
+            try {
+                if (u.getId_usuario() != null) {
+                    String content = "Estimad@ " + u.getNombres() + " gracicas por registrarse en la app Cola";
+                    String asunto = "Registro exitoso";
+                    new SendMail().sendmail(u.getCorreo(), content, asunto);
+                }
 
-            return repositorio_usuarios.crear(u);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            return u;
         }
     }
 }

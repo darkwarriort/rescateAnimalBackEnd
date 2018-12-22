@@ -32,6 +32,7 @@ public class Reportar {
     private Long id_raza;
     private String edad;
     private Long id_sexo;
+    private Long id_usuario;
     private String color;
     private String telefono;
     private String direccion;
@@ -186,6 +187,14 @@ public class Reportar {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Long getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(Long id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     

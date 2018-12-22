@@ -52,7 +52,27 @@ public class RepoReportar {
             Transaction tx = sesion.beginTransaction();
             String q = "select r.*, e.nombre as especie ,ra.nombre as raza from reportar r inner join especie e \n"
                     + "on r.id_especie = e.id_especie \n"
-                    + "inner join raza ra on ra.id_raza = r.id_raza";
+                    + "inner join raza ra on ra.id_raza = r.id_raza ";
+            SQLQuery query = sesion.createSQLQuery(q);
+            query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+
+            razas = query.list();
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return razas;
+
+    }
+    public List<Object> obtenerListaExtendida(String idUsuario) {
+        Session sesion = null;
+        List<Object> razas = new ArrayList<Object>();
+        try {
+            sesion = obtenerSesion();
+            Transaction tx = sesion.beginTransaction();
+            String q = "select r.*, e.nombre as especie ,ra.nombre as raza from reportar r inner join especie e \n"
+                    + "on r.id_especie = e.id_especie \n"
+                    + "inner join raza ra on ra.id_raza = r.id_raza where r.id_usuario = '"+idUsuario+"'";
             SQLQuery query = sesion.createSQLQuery(q);
             query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 

@@ -91,6 +91,7 @@ public class RepoUsuario {
         return user;
 
     }
+    
     public Usuario validaUsuario(String usuario) {
         Session sesion = null;
         Usuario user = null;
