@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "participantes")
 public class Participante {
-        @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_part;    
     private Long id_usuario;    

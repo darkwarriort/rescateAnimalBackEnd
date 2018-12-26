@@ -5,9 +5,11 @@
  */
 package com.rescate.api;
 
+import com.rescate.entidades.Participante;
 import com.rescate.entidades.Postulante;
 import com.rescate.entidades.Reportar;
 import com.rescate.entidades.Usuario;
+import com.rescate.repositorios.RepoParticipante;
 import com.rescate.repositorios.RepoPostulante;
 import com.rescate.repositorios.RepoReportar;
 import com.rescate.util.SendMail;
@@ -34,25 +36,18 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @CrossOrigin(origins = "*")
-public class Postulantes {
+public class Participantes {
     
 
     
     @Autowired
-    private RepoPostulante repositorio_postulante;
-    
-    @GetMapping("/api/postular/{idUsuario}")
-    public List<Object> list(@PathVariable("idUsuario") String idUsuario) {
-        return repositorio_postulante.obtenerListaExtendida(idUsuario);
-    }
+    private RepoParticipante repositorio_participante;
+   
 
-    @PostMapping("/api/postular/new")
-    public Postulante crear(@RequestBody Postulante u) {
-        return repositorio_postulante.crear(u);
+    @PostMapping("/api/participante/new")
+    public Participante crear(@RequestBody Participante u) {
+        return repositorio_participante.crear(u);
     }
-    @PostMapping("/api/postular/newArray")
-    public List<Postulante>  crearArray(@RequestBody List<Postulante> u) {
-        return repositorio_postulante.crear(u);
-    }
+    
   
 }

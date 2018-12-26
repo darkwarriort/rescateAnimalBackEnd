@@ -68,6 +68,25 @@ public class RepoPostulante {
 
     }
 
+    public List<Postulante> crear(List<Postulante> us) {
+        Session sesion = null;
+
+        try {
+            sesion = obtenerSesion();
+            Transaction tx = sesion.beginTransaction();
+            for (Postulante u : us) {
+                sesion.saveOrUpdate(u);    
+            }
+            
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return us;
+
+    }
+
     Session obtenerSesion() {
         Configuration conf = new Configuration().configure().addAnnotatedClass(Postulante.class);
         ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(conf.getProperties()).buildServiceRegistry();
