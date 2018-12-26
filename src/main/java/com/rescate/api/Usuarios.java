@@ -107,18 +107,15 @@ public class Usuarios {
     @PostMapping("/api/usuario/new")
     public Usuario crearUsuario(@RequestBody Usuario u) {
 
-        if (repositorio_usuarios.validaUsuario(u.getUsuario()) != null) {
-            return new Usuario();
-        } else if (repositorio_usuarios.validaCorreo(u.getCorreo()) != null) {
-            return new Usuario();
-        } else {
+        if (u.getId_usuario() != null) {
+
             u.setFecha_modificacion(new Date(System.currentTimeMillis()));
             u.setFecha_ingreso(new Date(System.currentTimeMillis()));
             repositorio_usuarios.crear(u);
             try {
                 if (u.getId_usuario() != null) {
-                    String content = "Estimad@ " + u.getNombres() + " gracicas por registrarse en la app Cola";
-                    String asunto = "Registro exitoso";
+                    String content = "Estimad@ " + u.getNombres() + " su clave de acceso ha sido cambiada exitosamente";
+                    String asunto = "Cambio de clave exitoso";
                     new SendMail().sendmail(u.getCorreo(), content, asunto);
                 }
 
@@ -127,6 +124,28 @@ public class Usuarios {
             }
 
             return u;
+        } else {
+            if (repositorio_usuarios.validaUsuario(u.getUsuario()) != null) {
+                return new Usuario();
+            } else if (repositorio_usuarios.validaCorreo(u.getCorreo()) != null) {
+                return new Usuario();
+            } else {
+                u.setFecha_modificacion(new Date(System.currentTimeMillis()));
+                u.setFecha_ingreso(new Date(System.currentTimeMillis()));
+                repositorio_usuarios.crear(u);
+                try {
+                    if (u.getId_usuario() != null) {
+                        String content = "Estimad@ " + u.getNombres() + " gracias por registrarse en la app Cola";
+                        String asunto = "Registro exitoso";
+                        new SendMail().sendmail(u.getCorreo(), content, asunto);
+                    }
+
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
+                return u;
+            }
         }
     }
 }
